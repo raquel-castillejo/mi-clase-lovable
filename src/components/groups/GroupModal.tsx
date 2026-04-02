@@ -29,11 +29,11 @@ const GroupModal = ({ group, students, onSave, onClose }: GroupModalProps) => {
   };
 
   return (
-    <div style={overlayStyle} onClick={onClose}>
-      <div style={modalStyle} onClick={(e) => e.stopPropagation()}>
+    <div style={overlayStyle} className="animate-fade-in" onClick={onClose}>
+      <div style={modalStyle} className="animate-scale-pop" onClick={(e) => e.stopPropagation()}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-md)' }}>
           <h2 style={titleStyle}>{group ? 'Edit Group' : 'Create Group'}</h2>
-          <button onClick={onClose} style={closeBtnStyle}><X size={20} /></button>
+          <button onClick={onClose} className="hover-dim" style={closeBtnStyle}><X size={20} /></button>
         </div>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
           <div>
@@ -56,11 +56,12 @@ const GroupModal = ({ group, students, onSave, onClose }: GroupModalProps) => {
                     display: 'flex', alignItems: 'center', gap: 'var(--space-sm)', padding: 'var(--space-sm) var(--space-md)', borderRadius: 'var(--radius-sm)',
                     border: '1px solid hsl(var(--color-border))', background: selected.has(s.id) ? 'hsl(var(--color-secondary-light))' : 'transparent',
                     cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', fontSize: 'var(--text-subhead)', color: 'hsl(var(--color-text))',
+                    transition: 'background 0.15s ease, border-color 0.15s ease',
                   }}
                 >
                   <span style={{
                     width: 20, height: 20, borderRadius: 'var(--radius-sm)', border: '2px solid hsl(var(--color-secondary))', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    background: selected.has(s.id) ? 'hsl(var(--color-secondary))' : 'transparent',
+                    background: selected.has(s.id) ? 'hsl(var(--color-secondary))' : 'transparent', transition: 'background 0.15s ease',
                   }}>
                     {selected.has(s.id) && <Check size={14} color="hsl(var(--color-secondary-text))" />}
                   </span>
@@ -69,7 +70,7 @@ const GroupModal = ({ group, students, onSave, onClose }: GroupModalProps) => {
               ))}
             </div>
           </div>
-          <button type="submit" style={submitBtnStyle}>
+          <button type="submit" className="hover-brighten" style={submitBtnStyle}>
             {group ? 'Save Changes' : 'Create Group'}
           </button>
         </form>
@@ -78,8 +79,8 @@ const GroupModal = ({ group, students, onSave, onClose }: GroupModalProps) => {
   );
 };
 
-const overlayStyle: React.CSSProperties = { position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 };
-const modalStyle: React.CSSProperties = { background: 'hsl(0 0% 100%)', borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', width: '100%', maxWidth: 480, maxHeight: '90vh', overflow: 'auto' };
+const overlayStyle: React.CSSProperties = { position: 'fixed', inset: 0, background: 'hsl(var(--color-overlay))', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 };
+const modalStyle: React.CSSProperties = { background: 'hsl(var(--color-card))', borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', width: '100%', maxWidth: 480, maxHeight: '90vh', overflow: 'auto' };
 const titleStyle: React.CSSProperties = { fontSize: 'var(--text-title-2)', lineHeight: 'var(--leading-title-2)', fontWeight: 'var(--weight-headline)', color: 'hsl(var(--color-text))', margin: 0 };
 const closeBtnStyle: React.CSSProperties = { background: 'none', border: 'none', cursor: 'pointer', color: 'hsl(var(--color-text-secondary))', display: 'flex' };
 const labelStyle: React.CSSProperties = { display: 'block', fontSize: 'var(--text-subhead)', lineHeight: 'var(--leading-subhead)', fontWeight: 'var(--weight-headline)', color: 'hsl(var(--color-text))', marginBottom: 'var(--space-xs)' };

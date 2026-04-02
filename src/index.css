@@ -136,6 +136,10 @@
     --radius-pill: 999px;
     --radius: var(--radius-md);
 
+  /* ── Extra semantic helpers ── */
+    --color-card: 0 0% 100%;
+    --color-overlay: 0 0% 0% / 0.35;
+
     /* ── Sidebar (mapped) ── */
     --sidebar-background: var(--color-surface);
     --sidebar-foreground: var(--color-text);
@@ -160,4 +164,69 @@
     line-height: var(--leading-body);
     font-weight: var(--weight-body);
   }
+}
+
+/* ── Animations ── */
+@keyframes card-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scale-pop {
+  0%   { transform: scale(0.92); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes flash-correct {
+  0%   { background: hsl(var(--color-success-light)); }
+  100% { background: transparent; }
+}
+@keyframes flash-wrong {
+  0%   { background: hsl(var(--color-alert-light)); }
+  100% { background: transparent; }
+}
+
+.animate-card-enter {
+  animation: card-enter 0.35s ease-out both;
+}
+.animate-fade-in {
+  animation: fade-in 0.25s ease-out both;
+}
+.animate-scale-pop {
+  animation: scale-pop 0.3s ease-out both;
+}
+.animate-flash-correct {
+  animation: flash-correct 0.6s ease-out both;
+}
+.animate-flash-wrong {
+  animation: flash-wrong 0.6s ease-out both;
+}
+
+/* Staggered entrance helper — set --i on element */
+.stagger-enter {
+  animation: card-enter 0.35s ease-out both;
+  animation-delay: calc(var(--i, 0) * 50ms);
+}
+
+/* Hover utilities for interactive elements */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px hsl(var(--color-text) / 0.08);
+}
+.hover-brighten {
+  transition: filter 0.15s ease;
+}
+.hover-brighten:hover {
+  filter: brightness(1.06);
+}
+.hover-dim {
+  transition: opacity 0.15s ease;
+}
+.hover-dim:hover {
+  opacity: 0.75;
 }

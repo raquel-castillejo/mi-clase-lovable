@@ -5,19 +5,22 @@ interface StudentCardProps {
   student: Student;
   onEdit: () => void;
   onDelete: () => void;
+  index?: number;
 }
 
-const StudentCard = ({ student, onEdit, onDelete }: StudentCardProps) => (
+const StudentCard = ({ student, onEdit, onDelete, index = 0 }: StudentCardProps) => (
   <div
+    className="stagger-enter hover-lift"
     style={{
       display: 'flex',
       alignItems: 'center',
       gap: 'var(--space-md)',
       padding: 'var(--space-md)',
-      background: 'hsl(0 0% 100%)',
+      background: 'hsl(var(--color-card))',
       borderRadius: 'var(--radius-md)',
       border: '1px solid hsl(var(--color-border))',
-    }}
+      '--i': index,
+    } as React.CSSProperties}
   >
     <div
       style={{
@@ -39,33 +42,19 @@ const StudentCard = ({ student, onEdit, onDelete }: StudentCardProps) => (
       )}
     </div>
     <div style={{ flex: 1, minWidth: 0 }}>
-      <div
-        style={{
-          fontSize: 'var(--text-headline)',
-          lineHeight: 'var(--leading-headline)',
-          fontWeight: 'var(--weight-headline)',
-          color: 'hsl(var(--color-text))',
-        }}
-      >
+      <div style={{ fontSize: 'var(--text-headline)', lineHeight: 'var(--leading-headline)', fontWeight: 'var(--weight-headline)', color: 'hsl(var(--color-text))' }}>
         {student.name}
       </div>
       {student.notes && (
-        <div
-          style={{
-            fontSize: 'var(--text-footnote)',
-            lineHeight: 'var(--leading-footnote)',
-            color: 'hsl(var(--color-text-secondary))',
-            marginTop: 'var(--space-xs)',
-          }}
-        >
+        <div style={{ fontSize: 'var(--text-footnote)', lineHeight: 'var(--leading-footnote)', color: 'hsl(var(--color-text-secondary))', marginTop: 'var(--space-xs)' }}>
           {student.notes}
         </div>
       )}
     </div>
-    <button onClick={onEdit} title="Edit" style={iconBtnStyle}>
+    <button onClick={onEdit} title="Edit" className="hover-brighten" style={iconBtnStyle}>
       <Pencil size={16} />
     </button>
-    <button onClick={onDelete} title="Delete" style={{ ...iconBtnStyle, color: 'hsl(var(--color-alert))' }}>
+    <button onClick={onDelete} title="Delete" className="hover-brighten" style={{ ...iconBtnStyle, color: 'hsl(var(--color-alert))' }}>
       <Trash2 size={16} />
     </button>
   </div>

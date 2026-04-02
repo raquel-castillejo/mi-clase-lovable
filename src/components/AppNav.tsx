@@ -21,7 +21,7 @@ const AppNav = ({ active, onChange }: AppNavProps) => (
       gap: 'var(--space-xs)',
       padding: 'var(--space-sm) var(--space-md)',
       borderBottom: '1px solid hsl(var(--color-border))',
-      background: 'hsl(var(--color-surface))',
+      background: 'hsl(var(--color-card))',
     }}
   >
     <span
@@ -53,7 +53,7 @@ const AppNav = ({ active, onChange }: AppNavProps) => (
           fontFamily: 'inherit',
           background: active === t.key ? 'hsl(var(--color-primary))' : 'transparent',
           color: active === t.key ? 'hsl(var(--color-primary-text))' : 'hsl(var(--color-text-secondary))',
-          transition: 'all 0.15s ease',
+          transition: 'all 0.2s ease',
         }}
       >
         {t.icon}

@@ -29,11 +29,11 @@ const StudentModal = ({ student, onSave, onClose }: StudentModalProps) => {
   };
 
   return (
-    <div style={overlayStyle} onClick={onClose}>
-      <div style={modalStyle} onClick={(e) => e.stopPropagation()}>
+    <div style={overlayStyle} className="animate-fade-in" onClick={onClose}>
+      <div style={modalStyle} className="animate-scale-pop" onClick={(e) => e.stopPropagation()}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-md)' }}>
           <h2 style={titleStyle}>{student ? 'Edit Student' : 'Add Student'}</h2>
-          <button onClick={onClose} style={closeBtnStyle}><X size={20} /></button>
+          <button onClick={onClose} className="hover-dim" style={closeBtnStyle}><X size={20} /></button>
         </div>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
           <div>
@@ -47,12 +47,12 @@ const StudentModal = ({ student, onSave, onClose }: StudentModalProps) => {
           <div>
             <label style={labelStyle}>Photo</label>
             <input type="file" accept="image/*" ref={fileRef} onChange={handlePhoto} style={{ display: 'none' }} />
-            <button type="button" onClick={() => fileRef.current?.click()} style={uploadBtnStyle}>
+            <button type="button" onClick={() => fileRef.current?.click()} className="hover-brighten" style={uploadBtnStyle}>
               <Upload size={16} /> {photo ? 'Change photo' : 'Upload photo'}
             </button>
             {photo && <img src={photo} alt="Preview" style={{ width: 64, height: 64, borderRadius: 'var(--radius-pill)', objectFit: 'cover', marginTop: 'var(--space-sm)' }} />}
           </div>
-          <button type="submit" style={submitBtnStyle}>
+          <button type="submit" className="hover-brighten" style={submitBtnStyle}>
             {student ? 'Save Changes' : 'Add Student'}
           </button>
         </form>
@@ -62,10 +62,10 @@ const StudentModal = ({ student, onSave, onClose }: StudentModalProps) => {
 };
 
 const overlayStyle: React.CSSProperties = {
-  position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50,
+  position: 'fixed', inset: 0, background: 'hsl(var(--color-overlay))', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50,
 };
 const modalStyle: React.CSSProperties = {
-  background: 'hsl(0 0% 100%)', borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', width: '100%', maxWidth: 440, maxHeight: '90vh', overflow: 'auto',
+  background: 'hsl(var(--color-card))', borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', width: '100%', maxWidth: 440, maxHeight: '90vh', overflow: 'auto',
 };
 const titleStyle: React.CSSProperties = {
   fontSize: 'var(--text-title-2)', lineHeight: 'var(--leading-title-2)', fontWeight: 'var(--weight-headline)', color: 'hsl(var(--color-text))', margin: 0,

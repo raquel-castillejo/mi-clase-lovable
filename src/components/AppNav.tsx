@@ -1,66 +1,69 @@
 import { Users, UsersRound, LayoutGrid, Brain } from 'lucide-react';
-import type { Section } from '@/types/app';
+import { NavLink, useLocation } from 'react-router-dom';
 
-const tabs: { key: Section; label: string; icon: React.ReactNode }[] = [
-  { key: 'students', label: 'Students', icon: <Users size={20} /> },
-  { key: 'groups', label: 'Groups', icon: <UsersRound size={20} /> },
-  { key: 'seating', label: 'Seating', icon: <LayoutGrid size={20} /> },
-  { key: 'game', label: 'Memory', icon: <Brain size={20} /> },
+const tabs = [
+  { path: '/students', label: 'Students', icon: <Users size={20} /> },
+  { path: '/groups', label: 'Groups', icon: <UsersRound size={20} /> },
+  { path: '/seating', label: 'Seating', icon: <LayoutGrid size={20} /> },
+  { path: '/game', label: 'Memory', icon: <Brain size={20} /> },
 ];
 
-interface AppNavProps {
-  active: Section;
-  onChange: (s: Section) => void;
-}
+const AppNav = () => {
+  const { pathname } = useLocation();
 
-const AppNav = ({ active, onChange }: AppNavProps) => (
-  <nav
-    style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: 'var(--space-xs)',
-      padding: 'var(--space-sm) var(--space-md)',
-      borderBottom: '1px solid hsl(var(--color-border))',
-      background: 'hsl(var(--color-card))',
-    }}
-  >
-    <span
+  const isActive = (path: string) =>
+    pathname === path || (path === '/students' && pathname === '/');
+
+  return (
+    <nav
       style={{
-        fontWeight: 900,
-        fontSize: 'var(--text-title-3)',
-        lineHeight: 'var(--leading-title-3)',
-        color: 'hsl(var(--color-secondary))',
-        marginRight: 'auto',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--space-xs)',
+        padding: 'var(--space-sm) var(--space-md)',
+        borderBottom: '1px solid hsl(var(--color-border))',
+        background: 'hsl(var(--color-card))',
       }}
     >
-      MiClase
-    </span>
-    {tabs.map((t) => (
-      <button
-        key={t.key}
-        onClick={() => onChange(t.key)}
+      <span
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'var(--space-xs)',
-          padding: 'var(--space-sm) var(--space-md)',
-          borderRadius: 'var(--radius-pill)',
-          border: 'none',
-          cursor: 'pointer',
-          fontSize: 'var(--text-subhead)',
-          lineHeight: 'var(--leading-subhead)',
-          fontWeight: active === t.key ? 700 : 'var(--weight-subhead)',
-          fontFamily: 'inherit',
-          background: active === t.key ? 'hsl(var(--color-primary))' : 'transparent',
-          color: active === t.key ? 'hsl(var(--color-primary-text))' : 'hsl(var(--color-text-secondary))',
-          transition: 'all 0.2s ease',
+          fontWeight: 900,
+          fontSize: 'var(--text-title-3)',
+          lineHeight: 'var(--leading-title-3)',
+          color: 'hsl(var(--color-secondary))',
+          marginRight: 'auto',
         }}
       >
-        {t.icon}
-        <span>{t.label}</span>
-      </button>
-    ))}
-  </nav>
-);
+        MiClase
+      </span>
+      {tabs.map((t) => (
+        <NavLink
+          key={t.path}
+          to={t.path}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-xs)',
+            padding: 'var(--space-sm) var(--space-md)',
+            borderRadius: 'var(--radius-pill)',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: 'var(--text-subhead)',
+            lineHeight: 'var(--leading-subhead)',
+            fontWeight: isActive(t.path) ? 700 : 'var(--weight-subhead)',
+            fontFamily: 'inherit',
+            textDecoration: 'none',
+            background: isActive(t.path) ? 'hsl(var(--color-primary))' : 'transparent',
+            color: isActive(t.path) ? 'hsl(var(--color-primary-text))' : 'hsl(var(--color-text-secondary))',
+            transition: 'all 0.2s ease',
+          }}
+        >
+          {t.icon}
+          <span>{t.label}</span>
+        </NavLink>
+      ))}
+    </nav>
+  );
+};
 
 export default AppNav;

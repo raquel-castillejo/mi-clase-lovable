@@ -230,3 +230,36 @@
 .hover-dim:hover {
   opacity: 0.75;
 }
+
+/* ── Mobile nav utilities ── */
+.desktop-nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+.mobile-menu-toggle {
+  display: none;
+  align-items: center;
+}
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: hsl(var(--color-card));
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+@media (max-width: 649px) {
+  .desktop-nav-links {
+    display: none;
+  }
+  .mobile-menu-toggle {
+    display: flex;
+  }
+}
+@media (min-width: 650px) {
+  .mobile-menu-overlay {
+    display: none;
+  }
+}
